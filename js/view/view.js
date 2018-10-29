@@ -9,6 +9,11 @@ export default class View {
 
     }
 
+    clearContainer() {
+        let container = document.getElementById('container');
+        container.innerHTML = '';
+    }
+
     addElementsToNavi() {
         let naviDiv = document.getElementById('navi');
         naviDiv.appendChild(this.buttonCreator.getButton('Producent', this.controller.showProducent));
