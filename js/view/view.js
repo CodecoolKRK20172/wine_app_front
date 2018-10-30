@@ -9,7 +9,6 @@ export default class View {
         this.buttonCreator = new ButtonCreator();
         this.listElementCreator = new ListElementCreator();
         this.addElementsToNavi();
-
     }
 
     addElementsToNavi() {
@@ -20,24 +19,45 @@ export default class View {
     }
 
     displayProducersList(producersData) {
-        this.showAllElements(producersData, this.controller.getAllProducers);
+        this.showAllElements(producersData, this.controller.getProducerById);
     };
 
+    displayOneProducer(producerData) {
+        this.showOneElement(producerData, this.controller.getProducerById);
+    }
+
     displayRegionsList(regionsData) {
-        this.showAllElements(regionsData, this.controller.getAllRegions);
+        this.showAllElements(regionsData, this.controller.getWinesByRegionName);
     };
 
     displayWinesList(winesData) {
-        this.showAllElements(winesData, this.controller.getAllWines);
+        this.showAllElements(winesData, this.controller.getWine);
     };
+
+    displayOneWine(wineData) {
+        this.showWineInfo(wineData)
+    }
 
     showAllElements(givenData, action) {
         const container = document.getElementById('container');
         container.innerText = '';
         givenData.forEach(element => {
-            let listElement = this.listElementCreator.createListElement(element.toString(), action.bind(this));
+            let listElement = this.listElementCreator.createListElement(element.toString(), action.bind(this, element));
             container.appendChild(listElement);
             });
-        
+    }
+
+    showOneElement(givenData, action) {
+        const container = document.getElementById('container');
+        container.innerText = '';
+        console.log(givenData.toString());
+        let element = this.listElementCreator.createListElement(givenData.toString(), action.bind(this));
+        container.appendChild(element);
+    }
+
+    showWineInfo(wineData) {
+        const wineWindow = document.createElement('div');
+        wineWindow.classList.add('wine-window');
+        const 
     }
 }
