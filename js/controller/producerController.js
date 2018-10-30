@@ -3,7 +3,6 @@ export default class Controller {
 
   constructor(model) {
     this.model = model;
-    this.url = 'http://localhost:8080';
   }
 
   showProducer() {
@@ -11,21 +10,33 @@ export default class Controller {
   }
 
   getAllProducers() {
-    console.log(this.controller.url);
     fetch("http://localhost:8080/producents")
-    .then(function(response) {
-      return response.json();
+    .then((response) => response.json())
+    .then((response) => { 
+      this.displayProducersList(response);
     })
-    .then(function(response) { 
-      response.forEach(element => {
-        const container = document.getElementById('container');
-        const chart = document.createElement('div');
-        chart.classList.add('list-element');
-        container.appendChild(chart);
-        console.log(element.name);
-        chart.innerHTML = element.name;
-        });
+    .catch(function(error) {
+      console.log('There has been a problem with your getAllProducers fetch operation: ', error.message);
+    });
+  }
+
+  getAllWines() {
+    fetch("http://localhost:8080/wines")
+    .then((response) => response.json())
+    .then((response) => { 
+      this.displayWinesList(response);
       console.log(JSON.stringify(response));
+    })
+    .catch(function(error) {
+      console.log('There has been a problem with your getAllProducers fetch operation: ', error.message);
+    });
+  }
+
+  getAllRegions() {
+    fetch("http://localhost:8080/regions")
+    .then((response) => response.json())
+    .then((response) => { 
+      this.displayRegionsList(response);
     })
     .catch(function(error) {
       console.log('There has been a problem with your getAllProducers fetch operation: ', error.message);
@@ -35,10 +46,8 @@ export default class Controller {
   getProducerById(id) {
     let producerId = id;
     fetch(`http://localhost:8080/producents/${producerId}`)
-    .then(function(response) {
-      return response.json();
-    })
-    .then(function(response) {
+    .then((response) => response.json())
+    .then((response) => {
       console.log(JSON.stringify(response).name);
     })
     .catch(function(error) {

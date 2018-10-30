@@ -14,18 +14,30 @@ export default class View {
 
     addElementsToNavi() {
         const naviDiv = document.getElementById('navi');
-        const container = document.getElementById('container');
         naviDiv.appendChild(this.buttonCreator.getButton('Producer', this.controller.getAllProducers.bind(this)));
-        naviDiv.appendChild(this.buttonCreator.getButton('Region'));
-        naviDiv.appendChild(this.buttonCreator.getButton('Year'));
-        naviDiv.appendChild(this.buttonCreator.getButton('Wine'));
+        naviDiv.appendChild(this.buttonCreator.getButton('Region', this.controller.getAllRegions.bind(this)));
+        naviDiv.appendChild(this.buttonCreator.getButton('Wine', this.controller.getAllWines.bind(this)));
     }
 
-    showAllProducers(data) {
-        data.forEach(element => {
-            this.listElementCreator.createListElement();
-            console.log(element.name);
-            chart.innerHTML = element.name;
+    displayProducersList(producersData) {
+        this.showAllElements(producersData, this.controller.getAllProducers.bind(this));
+    };
+
+    displayRegionsList(regionsData) {
+        this.showAllElements(regionsData, this.controller.getAllRegions.bind(this));
+    };
+
+    displayWinesList(winesData) {
+        this.showAllElements(winesData, this.controller.getAllWines.bind(this));
+    };
+
+    showAllElements(givenData, action) {
+        const container = document.getElementById('container');
+        container.innerText = '';
+        givenData.forEach(element => {
+            let listElement = this.listElementCreator.createListElement(element.name, action);
+            container.appendChild(listElement);
             });
+        
     }
 }
