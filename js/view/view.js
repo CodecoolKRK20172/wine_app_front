@@ -1,5 +1,6 @@
 import ButtonCreator from "./buttonCreator.js";
 import LabelCreator from "./labelCreator.js";
+import SearchModule from "./searchModule.js";
 
 export default class View {
 
@@ -7,6 +8,7 @@ export default class View {
         this.controller = controller;
         this.buttonCreator = new ButtonCreator();
         this.producentLabelCreator = new LabelCreator();
+        this.searchModule = new SearchModule();
         this.addElementsToNavi();
 
     }
@@ -22,6 +24,8 @@ export default class View {
         naviDiv.appendChild(this.buttonCreator.getButton('Region', this.controller.getRegionList.bind(this)));
         naviDiv.appendChild(this.buttonCreator.getButton('Wine', this.controller.getWineList.bind(this)));
         naviDiv.appendChild(this.buttonCreator.getButton('Add wine'));
+        naviDiv.appendChild(this.searchModule.getOptionSearchElement());
+        naviDiv.appendChild(this.searchModule.getInputSearchElement());
     }
 
     displayProducentList(producentList) {

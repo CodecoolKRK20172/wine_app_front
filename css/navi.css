@@ -43,3 +43,7 @@
     background-color: #8f9798;
     cursor: pointer;
 }
+
+.search-element {
+    height: 20px;
+}
