@@ -1,11 +1,11 @@
 export default class LabelCreator {
 
-    getProducentLabel(name, action) {
-        let label = document.createElement('div');
-        label.setAttribute('class', 'label');
-        label.innerText = name;
-        label.addEventListener('click', action);
+    getItemLabel(name, action) {
+        let itemLabel = document.createElement('div');
+        itemLabel.setAttribute('class', 'label');
+        itemLabel.innerText = name;
+        itemLabel.addEventListener('click', action);
 
-        return label;
+        return itemLabel;
     }
 }

@@ -13,9 +13,10 @@ export default class View {
 
     }
 
-    clearContainer() {
+    renderContainer(content) {
         let container = document.getElementById('container');
         container.innerHTML = '';
+        container.appendChild(content);
     }
 
     addElementsToNavi() {
@@ -24,49 +25,40 @@ export default class View {
         naviDiv.appendChild(this.buttonCreator.getButton('Region', this.controller.getRegionList.bind(this)));
         naviDiv.appendChild(this.buttonCreator.getButton('Wine', this.controller.getWineList.bind(this)));
         naviDiv.appendChild(this.buttonCreator.getButton('Add wine'));
+        naviDiv.appendChild(this.searchModule.getSearchLabel('Advanced search: '));
         naviDiv.appendChild(this.searchModule.getOptionSearchElement());
-        naviDiv.appendChild(this.searchModule.getInputSearchElement());
+        naviDiv.appendChild(this.searchModule.getInputSearchElement(this.controller.getWineListBySearchInput.bind(this)));
     }
 
     displayProducentList(producentList) {
-        this.addLabelListDiv(producentList, this.controller.showProducentWines);
+        this.displayItemList(producentList, this.controller.showProducentWines);
     }
 
     displayRegionList(regionList) {
-        this.addLabelListDiv(regionList, this.controller.showRegionWines);
+        this.displayItemList(regionList, this.controller.showRegionWines);
     }
 
     displayWineList(wineList) {
-        this.addLabelListDiv(wineList, this.controller.showWine);
+        this.displayItemList(wineList, this.controller.showWine);
     }
 
-    addLabelListDiv(nameList, action) {
-        let nameDiv = document.createElement('div');
-        nameDiv.setAttribute('id', 'content')
-        for (let i = 0; i < nameList.length; i++) {
-            let label = this.producentLabelCreator.getProducentLabel(nameList[i].toString(), action.bind(this, nameList[i]));
-            nameDiv.appendChild(label);
-        }
+    displayItemList(nameList, action) {
+        let div = document.createElement('div');
+        div.setAttribute('id', 'content')
+        nameList.forEach(element => {
+            let item = this.producentLabelCreator.getItemLabel(element.toString(), action.bind(this, element));
+            div.appendChild(item);
+        });
 
-        let container = document.getElementById('container');
-        container.innerText = '';
-        container.appendChild(nameDiv);
+        this.renderContainer(div);
     }
+
 
     displayWine(wine) {
         let wineDiv = document.createElement('div');
         wineDiv.setAttribute('id', 'content')
-
-        nameDiv.innerText = wine.name + ' ' + wine.year.toString() + wine.region.toString();
-
-        let container = document.getElementById('container');
-        container.innerText = '';
-        container.appendChild(nameDiv);
+        wineDiv.innerText = wine.name + ' ' + wine.year.toString() + wine.region.toString();
+        
+        this.renderContainer(wineDiv);
     }
-
-    addDiv() {
-
-    }
-
-
 }

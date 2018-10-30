@@ -29,6 +29,17 @@
     background-color: #b53351;
 }
 
+#label-search {
+    font-family: 'Cabin', sans-serif;
+    font-size: 16px;
+    font-weight: initial;
+    width: 130px;
+    text-align: center;
+    color: white;
+    padding-top: 10px;
+    margin-left: 60px;
+}
+
 .navi-button {
     font-family: 'Cabin', sans-serif;
     font-size: 16px;
@@ -45,5 +56,18 @@
 }
 
 .search-element {
-    height: 20px;
+    font-family: 'Cabin', sans-serif;
+    margin-top: 7px;
+    height: 24px;
+    background-color: #fdf8d1;
+    /*color: white;*/
+    border: none;
+    /*border-left: 1px solid;*/
+}
+
+#option-search-element {
+    width: 100px;
+    height: 26px;
+    margin-right: 10px;
+    margin-left: 10px;
 }

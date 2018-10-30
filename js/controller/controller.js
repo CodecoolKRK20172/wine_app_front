@@ -13,7 +13,6 @@ export default class Controller {
             .then((response) => response.json())
             .then((data) => {
 
-
                 this.displayProducentList(this.controller.model.getProducentList(data)); // metod from view
 
             })
@@ -49,6 +48,23 @@ export default class Controller {
                 this.displayWineList(this.controller.model.getWineList(data));
 
             })
+    }
+
+    getWineListBySearchInput() {
+        let input = this.searchModule.getValueOfInput();
+        let option = this.searchModule.getValueCurrentOption();
+
+        fetch(this.controller.url + 'wines/?'+ option + '=' + input, {
+            method: 'GET'
+        })
+            .then((response) => response.json())
+            .then((data) => {
+
+                console.log(data);
+
+            })
+
+
     }
 
     showProducentWines(producent) {
