@@ -35,6 +35,35 @@ export default class Controller {
     });
   }
 
+  getWinesByRegionName(region) {
+    let regionName = region.name;
+    fetch(`http://localhost:8080/wines?regionName=${regionName}`, {
+      method: 'GET'
+    })
+    .then((response) => response.json())
+    .then((response) => { 
+      this.displayWinesList(this.controller.model.getWineList(response));
+    })
+    .catch(function(error) {
+      console.log('There has been a problem with your getAllWines fetch operation: ', error.message);
+    });
+  }
+
+  getWine(wine) {
+    let idWine = wine.idWine;
+    fetch(`http://localhost:8080/wines/${idWine}`, {
+      method: 'GET'
+    })
+    .then((response) => response.json())
+    .then((response) => { 
+      console.log(JSON.stringify(response));
+      // this.displayWinesList(this.controller.model.getWineList(response));
+    })
+    .catch(function(error) {
+      console.log('There has been a problem with your getAllWines fetch operation: ', error.message);
+    });
+  }
+
   getAllRegions() {
     fetch("http://localhost:8080/regions", {
       method: 'GET'
@@ -48,11 +77,14 @@ export default class Controller {
     });
   }
 
-  getProducerById(id) {
-    fetch(`http://localhost:8080/producents/${id}`)
+  getProducerById(data) {
+    let id = data.idProducent;
+    fetch(`http://localhost:8080/producents/${id}`, {
+      method: 'GET'
+    })
     .then((response) => response.json())
     .then((response) => {
-      console.log(JSON.stringify(response).name);
+      this.displayOneProducer(this.controller.model.getProducer(response));
     })
     .catch(function(error) {
       console.log('There has been a problem with your getProducerById fetch operation: ', error.message);
