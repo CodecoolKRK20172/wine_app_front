@@ -1,5 +1,23 @@
-#navi {
+#white-line {
     top: 0px;
+    position: fixed;
+    height: 10px;
+    width: 100%;
+
+}
+
+#title {
+    font-family: 'Indie Flower', cursive;
+    font-weight: bolder;
+    font-size: 30px;
+    width: 100px;
+    text-align: center;
+    color: #fdf8d1;
+    margin-right: 30px;
+}
+
+#navi {
+    top: 10px;
     left: 0px;
     width: 100%;
     height: 40px;
@@ -7,10 +25,14 @@
     position: fixed;
     display: flex;
     flex-direction: row;
-    background-color: darkred;
+    /*background-color: darkred;*/
+    background-color: #b53351;
 }
 
 .navi-button {
+    font-family: 'Cabin', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
     width: 100px;
     text-align: center;
     color: white;
