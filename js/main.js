@@ -1,5 +1,5 @@
 
-import Controller from "./controller/controller.js";
+import Controller from "./controller/producerController.js";
 import View from "./view/view.js";
 import Model from "./model/model.js";
 
