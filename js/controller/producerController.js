@@ -13,7 +13,7 @@ export default class Controller {
     fetch("http://localhost:8080/producents")
     .then((response) => response.json())
     .then((response) => { 
-      this.displayProducersList(response);
+      this.displayProducersList(this.controller.model.getProducerList(response));
     })
     .catch(function(error) {
       console.log('There has been a problem with your getAllProducers fetch operation: ', error.message);
@@ -24,8 +24,8 @@ export default class Controller {
     fetch("http://localhost:8080/wines")
     .then((response) => response.json())
     .then((response) => { 
-      this.displayWinesList(response);
-      console.log(JSON.stringify(response));
+      this.displayWinesList(this.controller.model.getWineList(response));
+      // console.log(JSON.stringify(response));
     })
     .catch(function(error) {
       console.log('There has been a problem with your getAllProducers fetch operation: ', error.message);
@@ -36,7 +36,7 @@ export default class Controller {
     fetch("http://localhost:8080/regions")
     .then((response) => response.json())
     .then((response) => { 
-      this.displayRegionsList(response);
+      this.displayRegionsList(this.controller.model.getRegionList(response));
     })
     .catch(function(error) {
       console.log('There has been a problem with your getAllProducers fetch operation: ', error.message);

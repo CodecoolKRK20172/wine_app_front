@@ -35,7 +35,7 @@ export default class View {
         const container = document.getElementById('container');
         container.innerText = '';
         givenData.forEach(element => {
-            let listElement = this.listElementCreator.createListElement(element.name, action);
+            let listElement = this.listElementCreator.createListElement(element.toString(), action);
             container.appendChild(listElement);
             });
         
