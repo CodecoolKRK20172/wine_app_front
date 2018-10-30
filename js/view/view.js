@@ -20,22 +20,22 @@ export default class View {
     }
 
     displayProducersList(producersData) {
-        this.showAllElements(producersData, this.controller.getAllProducers.bind(this));
+        this.showAllElements(producersData, this.controller.getAllProducers);
     };
 
     displayRegionsList(regionsData) {
-        this.showAllElements(regionsData, this.controller.getAllRegions.bind(this));
+        this.showAllElements(regionsData, this.controller.getAllRegions);
     };
 
     displayWinesList(winesData) {
-        this.showAllElements(winesData, this.controller.getAllWines.bind(this));
+        this.showAllElements(winesData, this.controller.getAllWines);
     };
 
     showAllElements(givenData, action) {
         const container = document.getElementById('container');
         container.innerText = '';
         givenData.forEach(element => {
-            let listElement = this.listElementCreator.createListElement(element.toString(), action);
+            let listElement = this.listElementCreator.createListElement(element.toString(), action.bind(this));
             container.appendChild(listElement);
             });
         

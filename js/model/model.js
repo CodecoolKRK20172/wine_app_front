@@ -7,18 +7,18 @@ export default class Model {
     constructor() {}
 
     getProducer(data) {
-        return new Producer(data.id, data.name);
+        return new Producer(data.idProducent, data.name);
     }
 
     getRegion(data) {
-        return new Region(data.id, data.name, data.country);
+        return new Region(data.idRegion, data.name, data.country);
     }
 
     getWine(data) {
         let producer = this.getProducer(data.producent);
         let region = this.getRegion(data.region);
         let year = new Year(data.year[2], data.year[1], data.year[0])
-        return new Wine(data.id, 
+        return new Wine(data.idWine, 
             data.name, 
             data.variety, 
             data.style, 
@@ -45,7 +45,6 @@ export default class Model {
     }
 
     getWineList(data) {
-        console.log('here in get method');
         let resultList = [];
         data.forEach(element => {
             resultList.push(this.getWine(element));

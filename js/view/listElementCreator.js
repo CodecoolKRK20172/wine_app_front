@@ -6,7 +6,6 @@ export default class ListElementCreator {
     chart.classList.add('list-element');
     chart.innerHTML = data;
     chart.addEventListener('click', action);
-
     return chart;
   }
 }

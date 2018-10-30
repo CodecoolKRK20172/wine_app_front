@@ -1,7 +1,7 @@
 export default class Wine {
 
   constructor(id, name, variety, style, type, producer, region, year) {
-    this.id = id;
+    this.idWine = id;
     this.name = name;
     this.variety = variety;
     this.style = style;
