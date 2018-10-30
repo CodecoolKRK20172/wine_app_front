@@ -1,0 +1,29 @@
+body {
+  font-family: 'Raleway', sans-serif;
+  max-width: 1200px;
+}
+
+#navi {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: rgb(138, 6, 116);
+  cursor: pointer;
+}
+.nav-element {
+  flex-direction: row;
+  padding: 15px;
+  color: white;
+}
+
+.list-element {
+  padding: 10px;
+  margin-bottom: 2px;
+  background-color: rgb(30, 126, 126);
+  color: white;
+  border-radius: 2px;
+}
+#container :first-child {
+  margin-top: 2px;
+}

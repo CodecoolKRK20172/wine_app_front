@@ -1,4 +1,16 @@
+
+
 #navi {
     display: flex;
     flex-direction: row;
+    align-content: space-around;
+    cursor: pointer;
+}
+.nav-element {
+    display: flex;
+    flex-direction: row;
+    padding: 15px;
+    background-color: rgb(138, 6, 116);
+    color: white;
+    
 }
