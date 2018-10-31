@@ -3,6 +3,7 @@
     position: fixed;
     height: 10px;
     width: 100%;
+    background-color: white;
 
 }
 
@@ -51,7 +52,8 @@
 }
 
 .navi-button:hover {
-    background-color: #8f9798;
+    background-color: white;
+    color: #b53351;
     cursor: pointer;
 }
 
