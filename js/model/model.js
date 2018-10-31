@@ -17,7 +17,8 @@ export default class Model {
     getWine(data) {
         let producer = this.getProducer(data.producent);
         let region = this.getRegion(data.region);
-        let year = new Year(data.year[2], data.year[1], data.year[0])
+        let year = new Year(data.year[2], data.year[1], data.year[0]);
+        
         return new Wine(data.idWine, 
             data.name, 
             data.variety, 

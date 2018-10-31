@@ -9,10 +9,22 @@ export default class Wine {
     this.producer = producer;
     this.region = region;
     this.year = year;
+    
   }
 
   toString() {
     return this.name + ' ' + this.region + ' ' + this.year;
   }
+
+  // getParameters() {
+  //   let parametersArray = [];
+  //   parametersArray.push(this.name);
+  //   parametersArray.push(this.name);
+  //   parametersArray.push(this.name);
+  //   parametersArray.push(this.name);
+  //   parametersArray.push(this.name);
+  //   parametersArray.push(this.name);
+
+  // }
 
 }

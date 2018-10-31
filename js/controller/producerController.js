@@ -49,7 +49,7 @@ export default class Controller {
     });
   }
 
-  getWine(wine) {
+  getOneWine(wine) {
     let idWine = wine.idWine;
     fetch(`http://localhost:8080/wines/${idWine}`, {
       method: 'GET'
@@ -57,7 +57,7 @@ export default class Controller {
     .then((response) => response.json())
     .then((response) => { 
       console.log(JSON.stringify(response));
-      // this.displayWinesList(this.controller.model.getWineList(response));
+      this.displayOneWine(this.controller.model.getWine(response));
     })
     .catch(function(error) {
       console.log('There has been a problem with your getAllWines fetch operation: ', error.message);
