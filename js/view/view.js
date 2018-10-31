@@ -1,6 +1,7 @@
 
 import ButtonCreator from "./buttonCreator.js";
 import ElementCreator from './elementCreator.js';
+import ModalWindow from "./modalWindow.js";
 
 export default class View {
 
@@ -8,6 +9,7 @@ export default class View {
         this.controller = controller;
         this.buttonCreator = new ButtonCreator();
         this.elementCreator = new ElementCreator();
+        
         this.addElementsToNavi();
     }
 
@@ -35,7 +37,8 @@ export default class View {
     }
 
     displayOneWine(wineData) {
-        this.showWineInfo(wineData);
+        this.showWineInfo(wineData, this.controller.deleteOneWine, this.controller.getOneWine);
+        //TODO action2 not right!!!
     }
 
     showAllElements(givenData, action) {
@@ -55,9 +58,10 @@ export default class View {
         container.appendChild(element);
     }
 
-    showWineInfo(wineData) {
+    showWineInfo(wineData, action1, action2) {
+        this.modalWindow = new ModalWindow();
         const container = document.getElementById('container');
-        let element = this.elementCreator.createModalWindow(wineData);
+        let element = this.modalWindow.createModalWindow(wineData, action1.bind(this, wineData), action2.bind(this, wineData));
         container.appendChild(element);
         window.addEventListener('click', (e)=> {
             if (e.target == element) {

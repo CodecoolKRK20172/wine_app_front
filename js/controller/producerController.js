@@ -49,6 +49,18 @@ export default class Controller {
     });
   }
 
+  deleteOneWine(wine) {
+    let idWine = wine.idWine;
+    fetch(`http://localhost:8080/wines/${idWine}`, {
+      method: 'DELETE',
+      mode: "cors"
+    })
+    .then((response) => console.log(response))
+    .catch(function(error) {
+      console.log('There has been a problem with your deleteOneWine fetch operation: ', error.message);
+    });
+  }
+
   getOneWine(wine) {
     let idWine = wine.idWine;
     fetch(`http://localhost:8080/wines/${idWine}`, {
