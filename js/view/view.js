@@ -41,6 +41,10 @@ export default class View {
         //TODO action2 not right!!!
     }
 
+    // displayError(data) {
+    //     this.showError(data);
+    // }
+
     showAllElements(givenData, action) {
         const container = document.getElementById('container');
         container.innerText = '';
@@ -69,5 +73,29 @@ export default class View {
             }
         });
 
+    }
+
+    showError(data) {
+        let message = `There was a problem with deleting this... (response code ${data})`;
+        const container = document.getElementById('container');
+        let element = this.modalWindow.createErrorModalWindow(message);
+        container.appendChild(element);
+        window.addEventListener('click', (e)=> {
+            if (e.target == element) {
+                element.parentNode.removeChild(element);
+            }
+        });
+    }
+
+    showResult(data) {
+        let message = `The wine was successfully deleted (response code ${data})`;
+        const container = document.getElementById('container');
+        let element = this.modalWindow.createErrorWindow(message);
+        container.appendChild(element);
+        window.addEventListener('click', (e)=> {
+            if (e.target == element) {
+                element.parentNode.removeChild(element);
+            }
+        });
     }
 }

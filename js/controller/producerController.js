@@ -55,7 +55,13 @@ export default class Controller {
       method: 'DELETE',
       mode: "cors"
     })
-    .then((response) => console.log(response))
+    .then((response)=> {
+      if (response.status !== 200) {
+        this.showError(response.status);
+      } else {
+        this.showResult(response.status);
+      }
+    })
     .catch(function(error) {
       console.log('There has been a problem with your deleteOneWine fetch operation: ', error.message);
     });
@@ -68,7 +74,6 @@ export default class Controller {
     })
     .then((response) => response.json())
     .then((response) => { 
-      console.log(JSON.stringify(response));
       this.displayOneWine(this.controller.model.getWine(response));
     })
     .catch(function(error) {

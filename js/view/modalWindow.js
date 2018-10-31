@@ -37,13 +37,25 @@ export default class ModalWindow {
     return modalWindow;
   }
 
-  createErrorModalWindow() {
+
+  createErrorModalWindow(errorData) {
     const modalWindow = document.createElement('div');
     modalWindow.classList.add('modal');
 
     const notifyWindow = document.createElement('div');
     notifyWindow.classList.add('notify-container');
+
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('center-positioned-div');
+
+    messageDiv.innerText = errorData;
+
+    notifyWindow.appendChild(messageDiv);
+    modalWindow.appendChild(notifyWindow);
+
+    return modalWindow;
   }
+
 
   getProperties(wineData) {
     let newArray = [];
@@ -54,6 +66,7 @@ export default class ModalWindow {
     }
     return newArray;
   }
+
 
   addButtons(action1, action2) {
     const buttonDiv = document.createElement('div');
