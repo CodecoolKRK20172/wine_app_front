@@ -47,4 +47,28 @@ export default class Model {
 
         return wineList;
     }
+
+    getWineListByRegion(wineList, searchInput) {
+        let resultList = [];
+        wineList.forEach(element => {
+            let regionName = element.region.name.toLowerCase();
+            if (regionName.slice(0, searchInput.length).includes(searchInput.toLowerCase())) {
+                resultList.push(element);
+            }
+        });
+
+        return resultList;
+    }
+
+    getWineListBySearchInput(wineList, searchInput) {
+        let resultList = [];
+        wineList.forEach(element => {
+            let wineName = element.name.toLowerCase()
+            if (wineName.slice(0, searchInput.length).includes(searchInput.toLowerCase())) {
+                resultList.push(element);
+            }
+        });
+
+        return resultList;
+    }
 }

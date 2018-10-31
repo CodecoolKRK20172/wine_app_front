@@ -54,13 +54,18 @@ export default class Controller {
         let input = this.searchModule.getValueOfInput();
         let option = this.searchModule.getValueCurrentOption();
 
-        fetch(this.controller.url + 'wines/?'+ option + '=' + input, {
+        fetch(this.controller.url + 'wines', {
             method: 'GET'
         })
             .then((response) => response.json())
             .then((data) => {
+                let wineList = this.controller.model.getWineList(data);
+                if (option === 'regionName') {
+                    this.displayWineList(this.controller.model.getWineListByRegion(wineList, input));
 
-                console.log(data);
+                } else if (option === 'name') {
+                    this.displayWineList(this.controller.model.getWineListBySearchInput(wineList, input));
+                }
 
             })
 
