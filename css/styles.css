@@ -116,3 +116,11 @@ body {
   color: white;
   border-radius: 2px;
 }
+
+.error-code {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  font-size: 80px;
+  color: rgb(141, 13, 13); 
+}

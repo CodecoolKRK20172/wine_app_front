@@ -76,9 +76,9 @@ export default class View {
     }
 
     showError(data) {
-        let message = `There was a problem with deleting this... (response code ${data})`;
+        let message = `There was a problem with deleting this... The response code:`;
         const container = document.getElementById('container');
-        let element = this.modalWindow.createErrorModalWindow(message);
+        let element = this.modalWindow.createErrorModalWindow(message, data);
         container.appendChild(element);
         window.addEventListener('click', (e)=> {
             if (e.target == element) {

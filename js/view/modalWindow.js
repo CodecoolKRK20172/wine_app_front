@@ -38,7 +38,7 @@ export default class ModalWindow {
   }
 
 
-  createErrorModalWindow(errorData) {
+  createErrorModalWindow(errorMessage, errorCode) {
     const modalWindow = document.createElement('div');
     modalWindow.classList.add('modal');
 
@@ -48,9 +48,14 @@ export default class ModalWindow {
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('center-positioned-div');
 
-    messageDiv.innerText = errorData;
+    const errorCodeDiv = document.createElement('div');
+    errorCodeDiv.classList.add('error-code');
+
+    messageDiv.innerText = errorMessage;
+    errorCodeDiv.innerText = errorCode;
 
     notifyWindow.appendChild(messageDiv);
+    notifyWindow.appendChild(errorCodeDiv);
     modalWindow.appendChild(notifyWindow);
 
     return modalWindow;
