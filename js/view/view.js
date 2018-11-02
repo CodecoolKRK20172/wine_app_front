@@ -1,6 +1,7 @@
 import ButtonCreator from "./buttonCreator.js";
 import LabelCreator from "./labelCreator.js";
 import SearchModule from "./searchModule.js";
+import ModalWindow from "./modalWindow.js";
 
 export default class View {
 
@@ -55,10 +56,16 @@ export default class View {
 
 
     displayWine(wine) {
-        let wineDiv = document.createElement('div');
-        wineDiv.setAttribute('id', 'content')
-        wineDiv.innerText = wine.name + ' ' + wine.year.toString() + wine.region.toString();
-        
-        this.renderContainer(wineDiv);
+        this.modalWindow = new ModalWindow();
+        let modalWindow = this.modalWindow.createModalWindow();
+        this.modalWindow.setParameters(wine.getParameters());
+        this.modalWindow.addButtons();
+        // this.renderContainer(modalWindow);
+        container.appendChild(modalWindow);
+        modalWindow.addEventListener('click', (e)=> {
+            if (e.target == modalWindow) {
+                modalWindow.parentNode.removeChild(modalWindow);
+            }
+        });
     }
 }

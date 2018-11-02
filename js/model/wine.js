@@ -15,5 +15,9 @@ export default class Wine {
         return this.name + ' ' + this.year.toString();
     }
 
+    getParameters() {
+        return [this.name, this.variety, this.style, this.type, this.producent.toString(), this.region.country, this.region.name, this.year.toString()];
+    }
+
 
 }
