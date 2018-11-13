@@ -1,6 +1,6 @@
 export default class Region {
     constructor(id, name, country) {
-        this.id = id;
+        this.idRegion = id;
         this.name = name;
         this.country = country;
     }

@@ -1,7 +1,7 @@
 export default class Producent {
 
     constructor(id, name) {
-        this.id = id;
+        this.idProducent = id;
         this.name = name;
     }
 

@@ -5,6 +5,12 @@ import Year from "./year.js";
 
 export default class Model {
 
+    constructor() {
+        this.observerList = [];
+        this.itemList = [];
+        this.currentWine;
+    }
+
     getProducent(data) {
         return new Producent(data.idProducent, data.name);
     }
@@ -36,7 +42,7 @@ export default class Model {
         let region = this.getRegion(data.region);
         let year = new Year(data.year[2], data.year[1], data.year[0]);
 
-        return new Wine(data.id, data.name, data.variety, data.style, data.type, producent, region, year);
+        return new Wine(data.idWine, data.name, data.variety, data.style, data.type, producent, region, year);
     }
 
     getWineList(data) {
@@ -60,6 +66,18 @@ export default class Model {
         return resultList;
     }
 
+    getWineListByProducent(data, producent) {
+        let wineList = this.getWineList(data);
+        let resultList = [];
+        wineList.forEach(element => {
+            if (element.producent.id === producent.id) {
+                resultList.push(element);
+            }
+        });
+
+        return resultList;
+    }
+
     getWineListBySearchInput(wineList, searchInput) {
         let resultList = [];
         wineList.forEach(element => {
@@ -70,5 +88,23 @@ export default class Model {
         });
 
         return resultList;
+    }
+
+    setItemList(itemList) {
+        this.itemList = itemList;
+    }
+
+    setCurrentWine(wine) {
+        this.currentWine = wine;
+    }
+
+    attach(observer) {
+        this.observerList.push(observer);
+    }
+
+    notifyAllObservers() {
+        this.observerList.forEach(element => {
+            element.update(this);
+        })
     }
 }

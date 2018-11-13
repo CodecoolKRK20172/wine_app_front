@@ -1,71 +1,65 @@
-import ButtonCreator from "./buttonCreator.js";
-import LabelCreator from "./labelCreator.js";
+import NavigationButton from "./navigationButton.js";
 import SearchModule from "./searchModule.js";
-import ModalWindow from "./modalWindow.js";
+import NavigationPanel from "./navigationPanel.js";
+import MainContainer from "./mainContainer.js";
+import ItemLabelContainer from "./itemLabelContainer.js";
+import ModalContainer from "./modalContainer.js";
 
 export default class View {
 
     constructor(controller) {
         this.controller = controller;
-        this.buttonCreator = new ButtonCreator();
-        this.producentLabelCreator = new LabelCreator();
-        this.searchModule = new SearchModule();
-        this.addElementsToNavi();
+        this.itemLabelContainer = new ItemLabelContainer();
+        this.producentButton = new NavigationButton('Producent');
+        this.regionButton = new NavigationButton('Region');
+        this.wineButton = new NavigationButton('Wine');
+        this.addWineButton = new NavigationButton('Add wine');
+        this.searchModule = new SearchModule('Advanced search: ');
+        this.navigationPanel = new NavigationPanel();
+        this.mainContainer = new MainContainer(this.controller);
+        this.mainContainer.add(this.itemLabelContainer);
+        this.modalContainer = new ModalContainer(this.controller);
 
+        this.addElementsToNavigationPanel();
+        this.setObservers();
+        this.addEvents();
     }
 
-    renderContainer(content) {
-        let container = document.getElementById('container');
-        container.innerHTML = '';
-        container.appendChild(content);
+    addElementsToNavigationPanel() {
+        this.navigationPanel.add(this.producentButton);
+        this.navigationPanel.add(this.regionButton);
+        this.navigationPanel.add(this.wineButton);
+        this.navigationPanel.add(this.addWineButton);
+        this.navigationPanel.add(this.searchModule);
     }
 
-    addElementsToNavi() {
-        let naviDiv = document.getElementById('navi');
-        naviDiv.appendChild(this.buttonCreator.getButton('Producent', this.controller.getProducentList.bind(this)));
-        naviDiv.appendChild(this.buttonCreator.getButton('Region', this.controller.getRegionList.bind(this)));
-        naviDiv.appendChild(this.buttonCreator.getButton('Wine', this.controller.getWineList.bind(this)));
-        naviDiv.appendChild(this.buttonCreator.getButton('Add wine'));
-        naviDiv.appendChild(this.searchModule.getSearchLabel('Advanced search: '));
-        naviDiv.appendChild(this.searchModule.getOptionSearchElement());
-        naviDiv.appendChild(this.searchModule.getInputSearchElement(this.controller.getWineListBySearchInput.bind(this)));
+    setObservers() {
+        this.controller.model.attach(this.navigationPanel);
+        this.controller.model.attach(this.mainContainer);
+        this.controller.model.attach(this.modalContainer);
     }
 
-    displayProducentList(producentList) {
-        this.displayItemList(producentList, this.controller.showProducentWines);
-    }
-
-    displayRegionList(regionList) {
-        this.displayItemList(regionList, this.controller.showRegionWines);
-    }
-
-    displayWineList(wineList) {
-        this.displayItemList(wineList, this.controller.showWine);
-    }
-
-    displayItemList(nameList, action) {
-        let div = document.createElement('div');
-        div.setAttribute('id', 'content')
-        nameList.forEach(element => {
-            let item = this.producentLabelCreator.getItemLabel(element.toString(), action.bind(this, element));
-            div.appendChild(item);
+    addEvents() {
+        this.producentButton.getElement().addEventListener('click', () => {
+            this.controller.getProducentList();
         });
 
-        this.renderContainer(div);
-    }
-
-
-    displayWine(wine) {
-        this.modalWindow = new ModalWindow();
-        let modalWindow = this.modalWindow.createModalWindow();
-        this.modalWindow.setParameters(wine.getParameters());
-        this.modalWindow.addButtons();
-        // this.renderContainer(modalWindow);
-        container.appendChild(modalWindow);
-        modalWindow.addEventListener('click', (e)=> {
-            if (e.target == modalWindow) {
-                modalWindow.parentNode.removeChild(modalWindow);
-            }
+        this.regionButton.getElement().addEventListener('click', () => {
+            this.controller.getRegionList();
         });
+
+        this.wineButton.getElement().addEventListener('click', () => {
+            this.controller.getWineList();
+        });
+
+        this.searchModule.inputSearch.addEventListener('keyup', () => {
+            let input = this.searchModule.getValueOfInput();
+            let option = this.searchModule.getValueCurrentOption();
+            this.controller.getWineListBySearchInput(input, option);
+        });
+
+        this.addWineButton.getElement().addEventListener('click', () => {
+            this.modalContainer.update();
+        })
     }
 }

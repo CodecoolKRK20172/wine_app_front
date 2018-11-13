@@ -6,20 +6,18 @@ export default class Controller {
     }
 
     getProducentList() {
-
-        fetch(this.controller.url + 'producents', {
+        fetch(this.url + 'producents', {
             method: 'GET'
         })
             .then((response) => response.json())
             .then((data) => {
-
-                this.displayProducentList(this.controller.model.getProducentList(data)); // metod from view
-
+                this.model.setItemList(this.model.getProducentList(data));
+                this.model.notifyAllObservers();
             })
     }
 
     getRegionList() {
-        fetch(this.controller.url + 'regions', {
+        fetch(this.url + 'regions', {
             method: 'GET'
         })
             .then((response) => response.json())
@@ -28,15 +26,14 @@ export default class Controller {
                 for (let i = 0; i < data.length; i++) {
                     regionList.push(data[i].name);
                 }
-
-
-                this.displayRegionList(this.controller.model.getRegionList(data));
+                this.model.setItemList(this.model.getRegionList(data));
+                this.model.notifyAllObservers();
 
             })
     }
 
     getWineList() {
-        fetch(this.controller.url + 'wines', {
+        fetch(this.url + 'wines', {
             method: 'GET'
         })
             .then((response) => response.json())
@@ -44,53 +41,94 @@ export default class Controller {
                 let wineList = [];
                 for (let i = 0; i < data.length; i++) {
                     wineList.push(data[i].name);
+
                 }
-                this.displayWineList(this.controller.model.getWineList(data));
+                console.log(data.length);
+                this.model.setItemList(this.model.getWineList(data));
+                this.model.notifyAllObservers();
 
             })
     }
 
-    getWineListBySearchInput() {
-        let input = this.searchModule.getValueOfInput();
-        let option = this.searchModule.getValueCurrentOption();
-
-        fetch(this.controller.url + 'wines', {
+    getWineListBySearchInput(input, option) {
+        console.log(input);
+        fetch(this.url + 'wines', {
             method: 'GET'
         })
             .then((response) => response.json())
             .then((data) => {
-                let wineList = this.controller.model.getWineList(data);
+                let wineList = this.model.getWineList(data);
                 if (option === 'regionName') {
-                    this.displayWineList(this.controller.model.getWineListByRegion(wineList, input));
+                    this.model.setItemList(this.model.getWineListByRegion(wineList, input));
 
                 } else if (option === 'name') {
-                    this.displayWineList(this.controller.model.getWineListBySearchInput(wineList, input));
+                    this.model.setItemList(this.model.getWineListBySearchInput(wineList, input));
                 }
-
+                this.model.notifyAllObservers();
             })
 
 
+    }
+
+    deleteRecord(wine) {
+        fetch(this.url + 'wines/' + wine.idWine, {
+            method: 'DELETE'
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                this.model.notifyAllObservers();
+
+            })
     }
 
     showProducentWines(producent) {
-        console.log(producent);
-    }
-
-    showRegionWines(region) {
-        console.log(region.toString());
-        fetch(this.controller.url + 'wines/?regionName=' + region.name, {
+        fetch(this.url + 'wines', {
             method: 'GET'
         })
             .then((response) => response.json())
             .then((data) => {
+                let wineList = this.model.getWineListByProducent(data, producent);
+                this.model.setItemList(wineList);
+                this.model.notifyAllObservers();
 
-                this.displayWineList(this.controller.model.getWineList(data));
+            })
+    }
+
+    showRegionWines(region) {
+        fetch(this.url + 'wines/?regionName=' + region.name, {
+            method: 'GET'
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data)
+                this.model.setItemList(this.model.getWineList(data));
+                this.model.notifyAllObservers();
+
+            })
+    }
+
+    addWine(wine) {
+        console.log(wine)
+        fetch(this.url + 'wines/', {
+            method: 'POST',
+            headers: new Headers({'content-type': 'application/json'}),
+            body: JSON.stringify(wine)
+        })
+            .then((response) => {response.json(); console.log(response)})
+            .then((data) => {
+                // console.log(response.status)
+                alert(data.message)
+                // console.log(response)
+                console.log('cośtam')
+                // this.model.setItemList(this.model.getWineList(data));
+                // this.model.notifyAllObservers();
 
             })
     }
 
     showWine(wine) {
-        console.log(wine);
-        this.displayWine(wine);
+        console.log(wine)
+        this.model.setCurrentWine(wine);
+        this.model.notifyAllObservers();
     }
 }

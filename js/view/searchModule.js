@@ -1,11 +1,17 @@
 export default class SearchModule {
 
-    getInputSearchElement(action) {
+    constructor(name) {
+        this.searchLabel = this.getSearchLabel(name);
+        this.inputSearch = this.getInputSearchElement();
+        this.optionSearch = this.getOptionSearchElement();
+    }
+
+    getInputSearchElement() {
         let inputSearchDiv = document.createElement('input');
         inputSearchDiv.setAttribute('id', 'search-input');
         inputSearchDiv.className = 'search-element';
-        inputSearchDiv.addEventListener('keyup', action);
-
+        // inputSearchDiv.addEventListener('keyup', action);
+        // console.log(inputSearchDiv)
         return inputSearchDiv;
     }
 
@@ -47,5 +53,15 @@ export default class SearchModule {
         let input = document.getElementById('search-input');
 
         return input.value;
+    }
+
+    getElement() {
+        let div = document.createElement('div');
+        div.setAttribute('id', 'search-module');
+        div.appendChild(this.searchLabel);
+        div.appendChild(this.optionSearch);
+        div.appendChild(this.inputSearch);
+
+        return div;
     }
 }
